@@ -30,8 +30,8 @@ endif
 
 # Multiple scripts are sensitive to this value, make sure it's exported/available
 # N/B: Need to use 'command -v' here for compatibility with MacOS.
-export CONTAINER_RUNTIME ?= $(if $(shell command -v podman),podman,docker)
-GOMD2MAN ?= $(if $(shell command -v go-md2man),go-md2man,$(GOBIN)/go-md2man)
+export CONTAINER_RUNTIME ?= $(if $(shell command -v podman || which podman),podman,docker)
+GOMD2MAN ?= $(if $(shell command -v go-md2man || which go-md2man),go-md2man,$(GOBIN)/go-md2man)
 
 # Go module support: set `-mod=vendor` to use the vendored sources.
 # See also hack/make.sh.
