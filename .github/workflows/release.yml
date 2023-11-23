@@ -31,18 +31,27 @@ jobs:
           sudo apt install libgpgme-dev libassuan-dev libbtrfs-dev libdevmapper-dev pkg-config
           make bin/skopeo.linux.amd64
           make bin/skopeo.linux.arm64
-          make bin/skopeo.windows.amd64
-          make bin/skopeo.windows.arm64
           make bin/skopeo.darwin.amd64
           make bin/skopeo.darwin.arm64
         shell: bash
 
-      - name: dir
+      - uses: actions/upload-artifact@v3
+        with:
+          name: skopeo-linux-build
+          path: bin
+  mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+      - name: Build
         run: |
-          ls -la bin
+          brew install gpgme
+          make bin/skopeo.darwin.amd64
+          make bin/skopeo.darwin.arm64
         shell: bash
 
       - uses: actions/upload-artifact@v3
         with:
-          name: skopeo-build
+          name: skopeo-mac-build
           path: bin
