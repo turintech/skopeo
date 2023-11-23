@@ -31,8 +31,6 @@ jobs:
           sudo apt install libgpgme-dev libassuan-dev libbtrfs-dev libdevmapper-dev pkg-config
           make bin/skopeo.linux.amd64
           make bin/skopeo.linux.arm64
-          make bin/skopeo.darwin.amd64
-          make bin/skopeo.darwin.arm64
         shell: bash
 
       - uses: actions/upload-artifact@v3
@@ -47,8 +45,7 @@ jobs:
       - name: Build
         run: |
           brew install gpgme
-          make bin/skopeo.darwin.amd64
-          make bin/skopeo.darwin.arm64
+          make bin/skopeo
         shell: bash
 
       - uses: actions/upload-artifact@v3
