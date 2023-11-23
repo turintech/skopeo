@@ -30,6 +30,11 @@ jobs:
           sudo apt-get update
           sudo apt install libgpgme-dev libassuan-dev libbtrfs-dev libdevmapper-dev pkg-config
           make bin/skopeo.linux.amd64
+          make bin/skopeo.linux.arm64
+          make bin/skopeo.windows.amd64
+          make bin/skopeo.windows.arm64
+          make bin/skopeo.darwin.amd64
+          make bin/skopeo.darwin.arm64
         shell: bash
 
       - name: dir
