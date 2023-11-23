@@ -25,3 +25,12 @@ jobs:
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
+      - name: Build
+        run: |
+          make bin/skopeo.linux.amd64
+        shell: bash
+
+      - name: dir
+        run: |
+          ls -la
+        shell: bash
