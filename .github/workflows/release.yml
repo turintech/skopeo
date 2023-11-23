@@ -1,0 +1,27 @@
+
+name: Release Python Library
+
+# on:
+#   release:
+#     types:
+#       - published
+#       - edited
+on:
+  push:
+    branches:
+      - build
+
+env:
+  REPOSITORY_NAME: ${{ github.repository }}
+  TAG_NAME: ${{ github.ref_name }}
+
+concurrency:
+  group: publish.${{ github.ref || github.run_id }}.${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
