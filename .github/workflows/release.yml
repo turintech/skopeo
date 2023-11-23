@@ -39,5 +39,10 @@ jobs:
 
       - name: dir
         run: |
-          ls -la ./bin
+          ls -la bin
         shell: bash
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: skopeo-build
+          path: bin
