@@ -34,5 +34,5 @@ jobs:
 
       - name: dir
         run: |
-          ls -la
+          ls -la ./bin
         shell: bash
