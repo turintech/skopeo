@@ -33,6 +33,7 @@ jobs:
           make bin/skopeo.darwin.amd64
           make bin/skopeo.darwin.arm64
           make bin/skopeo.windows.amd64.exe
+          make bin/skopeo.windows.arm64.exe
         shell: bash
 
       - name: Upload release attachment
@@ -82,4 +83,11 @@ jobs:
               release_id: release.data.id,
               name: "skopeo.windows.amd64.exe",
               data: await fs.readFileSync("bin/skopeo.windows.amd64.exe")
+            });
+            await github.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.data.id,
+              name: "skopeo.windows.arm64.exe",
+              data: await fs.readFileSync("bin/skopeo.windows.arm64.exe")
             });
