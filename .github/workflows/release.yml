@@ -1,5 +1,5 @@
 
-name: Release Python Library
+name: Generate skopeo packages
 
 on:
   release:
