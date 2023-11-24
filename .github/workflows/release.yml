@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  linux:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current repository
