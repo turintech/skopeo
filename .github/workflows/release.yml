@@ -37,6 +37,7 @@ jobs:
           make bin/skopeo.linux.arm64
           make bin/skopeo.darwin.amd64
           make bin/skopeo.darwin.arm64
+          make bin/skopeo.windows.amd64.exe
         shell: bash
 
       - uses: actions/upload-artifact@v3
