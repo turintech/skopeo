@@ -25,6 +25,10 @@ jobs:
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
+      - name: Prepare GOlang
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.4'
       - name: Build
         run: |
           sudo apt-get update
@@ -42,6 +46,10 @@ jobs:
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
+      - name: Prepare GOlang
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.4'
       - name: Build
         run: |
           brew install gpgme
