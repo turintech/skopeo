@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y mingw-w64 curl golang make libdevmapper-dev libgpgme-dev
+          sudo apt-get install -y mingw-w64 curl make libdevmapper-dev libgpgme-dev
 
       - name: Prepare golang
         uses: actions/setup-go@v4
@@ -42,6 +42,8 @@ jobs:
         shell: bash
 
       - name: Upload release attachment
+        env:
+          GH_TOKEN: ${{ github.token }}
         run:  | 
           gh release upload ${{ github.ref_name }} bin/skopeo.linux.amd64 #skopeo.linux.amd64
           gh release upload ${{ github.ref_name }} bin/skopeo.linux.arm64 #skopeo.linux.arm64
