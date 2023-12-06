@@ -20,6 +20,11 @@ jobs:
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mingw-w64 curl golang make libdevmapper-dev libgpgme-dev
+
       - name: Prepare golang
         uses: actions/setup-go@v4
         with:
@@ -37,57 +42,67 @@ jobs:
         shell: bash
 
       - name: Upload release attachment
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const fs = require('fs');
-            const tag = context.ref.replace("refs/tags/", "");
-            // Get release for this tag
-            const release = await github.repos.getReleaseByTag({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag
-            });
-            // Upload the release asset
-            await github.repos.uploadReleaseAsset({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.data.id,
-              name: "skopeo.linux.amd64",
-              data: await fs.readFileSync("bin/skopeo.linux.amd64")
-            });
-            await github.repos.uploadReleaseAsset({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.data.id,
-              name: "skopeo.linux.arm64",
-              data: await fs.readFileSync("bin/skopeo.linux.arm64")
-            });
-            await github.repos.uploadReleaseAsset({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.data.id,
-              name: "skopeo.darwin.amd64",
-              data: await fs.readFileSync("bin/skopeo.darwin.amd64")
-            });
-            await github.repos.uploadReleaseAsset({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.data.id,
-              name: "skopeo.darwin.arm64",
-              data: await fs.readFileSync("bin/skopeo.darwin.arm64")
-            });
-            await github.repos.uploadReleaseAsset({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.data.id,
-              name: "skopeo.windows.amd64.exe",
-              data: await fs.readFileSync("bin/skopeo.windows.amd64.exe")
-            });
-            await github.repos.uploadReleaseAsset({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.data.id,
-              name: "skopeo.windows.arm64.exe",
-              data: await fs.readFileSync("bin/skopeo.windows.arm64.exe")
-            });
+        run:  | 
+          gh release upload ${{ github.ref_name }} bin/skopeo.linux.amd64 #skopeo.linux.amd64
+          gh release upload ${{ github.ref_name }} bin/skopeo.linux.arm64 #skopeo.linux.arm64
+          gh release upload ${{ github.ref_name }} bin/skopeo.darwin.amd64 #skopeo.darwin.amd64
+          gh release upload ${{ github.ref_name }} bin/skopeo.darwin.arm64 #skopeo.darwin.arm64
+          gh release upload ${{ github.ref_name }} bin/skopeo.windows.amd64.exe #skopeo.windows.amd64.exe
+          gh release upload ${{ github.ref_name }} bin/skopeo.windows.arm64.exe #skopeo.windows.arm64.exe
+        shell: bash
+
+      # - name: Upload release attachment
+      #   uses: actions/github-script@v4
+      #   with:
+      #     script: |
+      #       const fs = require('fs');
+      #       const tag = context.ref.replace("refs/tags/", "");
+      #       // Get release for this tag
+      #       const release = await github.repos.getReleaseByTag({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         tag
+      #       });
+      #       // Upload the release asset
+      #       await github.repos.uploadReleaseAsset({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         release_id: release.data.id,
+      #         name: "skopeo.linux.amd64",
+      #         data: await fs.readFileSync("bin/skopeo.linux.amd64")
+      #       });
+      #       await github.repos.uploadReleaseAsset({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         release_id: release.data.id,
+      #         name: "skopeo.linux.arm64",
+      #         data: await fs.readFileSync("bin/skopeo.linux.arm64")
+      #       });
+      #       await github.repos.uploadReleaseAsset({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         release_id: release.data.id,
+      #         name: "skopeo.darwin.amd64",
+      #         data: await fs.readFileSync("bin/skopeo.darwin.amd64")
+      #       });
+      #       await github.repos.uploadReleaseAsset({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         release_id: release.data.id,
+      #         name: "skopeo.darwin.arm64",
+      #         data: await fs.readFileSync("bin/skopeo.darwin.arm64")
+      #       });
+      #       await github.repos.uploadReleaseAsset({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         release_id: release.data.id,
+      #         name: "skopeo.windows.amd64.exe",
+      #         data: await fs.readFileSync("bin/skopeo.windows.amd64.exe")
+      #       });
+      #       await github.repos.uploadReleaseAsset({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         release_id: release.data.id,
+      #         name: "skopeo.windows.arm64.exe",
+      #         data: await fs.readFileSync("bin/skopeo.windows.arm64.exe")
+      #       });
