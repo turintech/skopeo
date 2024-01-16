@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get update && \
-    apt-get install -y mingw-w64 curl make \
+    apt-get install -y build-essential curl make \
     libdevmapper-dev libgpgme-dev pkg-config \
     libassuan-dev go-md2man
 
