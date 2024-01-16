@@ -24,7 +24,6 @@ jobs:
         run: |
           docker build -f Dockerfile -t skopeo-build .
           docker run -v ./bin:/skopeo/bin -t skopeo-build
-          [ -f ./bin/skopeo ] && mv ./bin/skopeo ./bin/skopeo.linux.amd64
         shell: bash
 
       - name: Upload release attachment

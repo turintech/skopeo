@@ -18,7 +18,7 @@ CMD /bin/bash -c \
     make bin/skopeo.darwin.amd64 && \
     make bin/skopeo.darwin.arm64 && \
     make bin/skopeo.windows.amd64.exe && \
-    make bin/skopeo.windows.arm64.exe
-
+    make bin/skopeo.windows.arm64.exe && \
+    [ -f ./bin/skopeo ] && mv ./bin/skopeo ./bin/skopeo.linux.amd64
 # docker build -f Dockerfile -t skopeo-build .
-# docker run -v bin:/skopeo/bin -t skopeo-build
+# docker run -v ./bin:/skopeo/bin -t skopeo-build
