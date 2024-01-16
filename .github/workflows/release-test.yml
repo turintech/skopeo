@@ -32,7 +32,6 @@ jobs:
           ls -la 
           pwd
         shell: bash
-        shell: bash
       # - name: Upload release attachment
       #   env:
       #     GH_TOKEN: ${{ github.token }}
