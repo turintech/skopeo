@@ -10,7 +10,7 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 
 WORKDIR skopeo
 COPY . .
-CMD DISABLE_CGO=1 /bin/bash -c \
+CMD /bin/bash -c \
     make bin/skopeo.linux.amd64 && \
     make bin/skopeo.linux.arm64
 
