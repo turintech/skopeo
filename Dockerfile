@@ -1,4 +1,4 @@
-FROM ubuntu:18.10
+FROM ubuntu:18.04
 
 RUN apt-get update && \
     apt-get install -y mingw-w64 curl make \
@@ -10,8 +10,9 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 WORKDIR skopeo
 COPY . .
 CMD /bin/bash -c \
+    ldd --version && \
     CGO_ENABLED=0 make bin/skopeo.linux.amd64 && \
     CGO_ENABLED=0 make bin/skopeo.linux.arm64
 
-# docker build -f Dockerfile -t skopeo-build .
-# docker run -v bin:/skopeo/bin -t skopeo-build
+# # docker build -f Dockerfile -t skopeo-build .
+# # docker run -v bin:/skopeo/bin -t skopeo-build
