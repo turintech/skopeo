@@ -1,4 +1,3 @@
-
 name: Generate skopeo packages
 
 on:
@@ -20,31 +19,17 @@ jobs:
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y mingw-w64 curl make libdevmapper-dev libgpgme-dev
 
-      - name: Prepare golang
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.21.4'
-      - name: Build
+      - name: Build skopeo
         run: |
-          sudo apt-get update
-          sudo apt install libgpgme-dev libassuan-dev libbtrfs-dev libdevmapper-dev pkg-config go-md2man
-          DISABLE_CGO=1 make bin/skopeo.linux.amd64
-          DISABLE_CGO=1 make bin/skopeo.linux.arm64
-          make bin/skopeo.darwin.amd64
-          make bin/skopeo.darwin.arm64
-          make bin/skopeo.windows.amd64.exe
-          make bin/skopeo.windows.arm64.exe
+          docker build -f Dockerfile -t skopeo-build .
+          docker run -v ./bin:/skopeo/bin -t skopeo-build
         shell: bash
 
       - name: Upload release attachment
         env:
           GH_TOKEN: ${{ github.token }}
-        run:  | 
+        run: |
           gh release upload ${{ github.ref_name }} bin/skopeo.linux.amd64 #skopeo.linux.amd64
           gh release upload ${{ github.ref_name }} bin/skopeo.linux.arm64 #skopeo.linux.arm64
           gh release upload ${{ github.ref_name }} bin/skopeo.darwin.amd64 #skopeo.darwin.amd64
