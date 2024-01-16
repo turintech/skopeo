@@ -1,19 +1,20 @@
-
 FROM ubuntu:18.04
 
 RUN apt-get update && \
     apt-get install -y mingw-w64 curl make \
-    libdevmapper-dev libgpgme-dev pkg-config \
-    go-md2man
+    libgpgme-dev libassuan-dev libdevmapper-dev pkg-config 
 
 COPY --from=golang:1.20.5-buster /usr/local/go/ /usr/local/go/
 ENV PATH="/usr/local/go/bin:${PATH}"
 
+ENV BUILDTAGS=containers_image_openpgp
+ENV DISABLE_DOCS=1
+
 WORKDIR skopeo
 COPY . .
 CMD /bin/bash -c \
-    DISABLE_CGO=1 make bin/skopeo.linux.amd64 && \
-    DISABLE_CGO=1 make bin/skopeo.linux.arm64 && \
+    make bin/skopeo.linux.amd64 && \
+    make bin/skopeo.linux.arm64 && \
     make bin/skopeo.darwin.amd64 && \
     make bin/skopeo.darwin.arm64 && \
     make bin/skopeo.windows.amd64.exe && \
