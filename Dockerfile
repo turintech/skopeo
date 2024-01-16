@@ -14,7 +14,6 @@ WORKDIR skopeo
 COPY . .
 CMD /bin/bash -c \
     make bin/skopeo.linux.amd64 && \
-    mv /bin/skopeo bin/skopeo.linux.amd64 && \
     make bin/skopeo.linux.arm64 && \
     make bin/skopeo.darwin.amd64 && \
     make bin/skopeo.darwin.arm64 && \
