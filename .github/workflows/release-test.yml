@@ -23,11 +23,11 @@ jobs:
       - name: Build
         run:  | 
           docker build -f Dockerfile -t skopeo-build .
-          docker run -v bin:/skopeo/bin -t skopeo-build
+          docker run -v ./bin:/skopeo/bin -t skopeo-build
         shell: bash
       - name: Build
         run:  | 
-          ls -la bin
+          ls -la ./bin
         shell: bash
       # - name: Upload release attachment
       #   env:
