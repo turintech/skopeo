@@ -20,14 +20,18 @@ jobs:
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
-      - name: Build
+      - name: Build skopeo
         run:  | 
           docker build -f Dockerfile -t skopeo-build .
           docker run -v ./bin:/skopeo/bin -t skopeo-build
         shell: bash
-      - name: Build
+      - name: testtt
         run:  | 
           ls -la ./bin
+          cd ./bin
+          ls -la 
+          pwd
+        shell: bash
         shell: bash
       # - name: Upload release attachment
       #   env:
