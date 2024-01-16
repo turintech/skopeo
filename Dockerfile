@@ -10,7 +10,6 @@ RUN apt-get update && \
 WORKDIR skopeo
 COPY . .
 CMD /bin/bash -c \
-    ldd --version && \
     CGO_ENABLED=0 make bin/skopeo.linux.amd64 && \
     CGO_ENABLED=0 make bin/skopeo.linux.arm64
 
