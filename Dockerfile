@@ -1,12 +1,11 @@
-FROM ubuntu:18.04
-
+# FROM ubuntu:18.04
+FROM golang:1.20.5-buster
 RUN apt-get update && \
-    apt-get install -y build-essential libmaus2-dev  curl make \
-    libdevmapper-dev libgpgme-dev pkg-config \
-    libassuan-dev go-md2man
+    apt-get install -y build-essential curl make \
+    libgpgme-dev libassuan-dev libbtrfs-dev libdevmapper-dev pkg-config
 
-COPY --from=golang:1.20.5-buster /usr/local/go/ /usr/local/go/
-ENV PATH="/usr/local/go/bin:${PATH}"
+# COPY --from=golang:1.20.5-buster /usr/local/go/ /usr/local/go/
+# ENV PATH="/usr/local/go/bin:${PATH}"
 
 WORKDIR skopeo
 COPY . .
