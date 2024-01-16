@@ -10,8 +10,7 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 
 WORKDIR skopeo
 COPY . .
-CMD /bin/bash -c \
-    make bin/skopeo.linux.amd64 && \
+CMD /bin/bash -c make bin/skopeo.linux.amd64 && \
     make bin/skopeo.linux.arm64 && \
     make bin/skopeo.darwin.amd64 
 
